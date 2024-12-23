@@ -2,11 +2,7 @@
 
 import logging
 
-from flask import render_template, redirect, url_for, current_app, request
-from flask_login import current_user, login_user, logout_user
-from urllib.parse import urlsplit
-
-from app import login_manager
+from flask import render_template
 
 from . import public_bp
 

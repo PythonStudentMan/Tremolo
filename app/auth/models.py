@@ -3,7 +3,6 @@
 import logging
 
 from flask_login import UserMixin, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timezone
 from app import db
 from app.models import Auditorias
@@ -74,17 +73,14 @@ class Usuarios(db.Model, UserMixin):
     #   Relación
     rol = db.relationship('Roles', back_populates='usuarios', uselist=False, single_parent=True) 
    
-        
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
     
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
+    def __repr__ (self):
+        return f'<Usuario {self.name}>'
     
-    def save(self):
-        if not self.id:
-            db.session.add(self)
-        db.session.commit()
+    def auditoria(self):
         #   Comprobamos si el registro ya existía en Auditoría y ha sido modificado o si es un registro nuevo
         audit = Auditorias.get_one(self.__tablename__, self.id)
         if audit and self.esta_modificado:
@@ -94,11 +90,7 @@ class Usuarios(db.Model, UserMixin):
             audit = Auditorias(self.__tablename__, self.id)
             audit.creado_por = self.id
             audit.save()
-            
-    def delete(self):
-        self.esta_borrado = True
-        self.save()
-    
+                
     @staticmethod
     def get_all():
         return Usuarios.query.all()
