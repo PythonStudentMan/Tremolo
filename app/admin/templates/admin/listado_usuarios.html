@@ -1,0 +1,30 @@
+{% extends "base_templates.html" %}
+{% block title %}Usuarios en la Base de Datos{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Nombre Usuario</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Activo</th>
+                        <th scope="col">Administrador</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                    <tr>
+                        <th scope="row">{{ usuario.name }}</th>
+                        <td>{{ usuario.email }}</td>
+                        <td>{{ usuario.rol }}</td>
+                        <td>{{ usuario.esta_activo }}</td>
+                        <td>{{ usuario.es_administrador }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
