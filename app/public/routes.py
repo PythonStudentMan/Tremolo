@@ -8,7 +8,7 @@ from urllib.parse import urlsplit
 
 from app import login_manager
 
-from .templates import public_bp
+from . import public_bp
 
 logger = logging.getLogger(__name__)
 
