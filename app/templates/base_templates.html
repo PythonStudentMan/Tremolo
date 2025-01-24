@@ -11,24 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-    <div>
-        <ul class="user-info">
-            <li><a href="{{ url_for('public.index') }}">Home</a></li>
-            {% if current_user.is_anonymous %}
-                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-                <li> | </li>
-                <li><a href="{{ url_for('auth.registro') }}">Registrar</a></li>
-            {% else %}
-                <li>{{ current_user.name }}</li>
-                {% if current_user.is_admin %}
-                    <li> | </li>
-                    <!--<li><a href="{{ url_for('admin.index') }}">Admin</a></li>-->
-                {% endif %}
-                <li> | </li>
-                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
-            {% endif %}
-        </ul>
-    </div>
+    {% block nav %}{% endblock %}
     {% block content %}{% endblock %}
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS --> 

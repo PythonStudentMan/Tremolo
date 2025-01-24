@@ -1,0 +1,34 @@
+{% extends "base_templates.html" %}
+{% block title %}Músicos en la Banda Titular{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="table" style="white-space: nowrap; overflow-x: auto;">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre del Músico</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Instrumento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for musico in musicos %}
+                    <tr>
+                        <th scope="row">{{ musico.id }}</th>
+                        <td><a href={{ url_for('admin.update_musico_form', musico_id=musico.id) }}>{{ musico.nombre_completo }}</a></td>
+                        <td>{{ musico.email }}</td>
+                        <td>{{ musico.telefono }}</td>
+                        <td>{{ musico.instrumento_principal.nombre if musico.instrumento_principal else 'No asignado' }}</td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="form-group mt-4">
+                <a href='/admin/musico/'class="btn btn-primary">Nuevo</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

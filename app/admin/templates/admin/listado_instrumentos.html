@@ -1,0 +1,30 @@
+{% extends "base_templates.html" %}
+{% block title %}Instrumentos y Familias{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="table" style="white-space: nowrap; overflow-x: auto;">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Instrumento</th>
+                        <th scope="col">Familia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for instrumento in instrumentos %}
+                    <tr>
+                        <th scope="row">{{ instrumento.id }}</th>
+                        <td><a href={{ url_for('admin.update_instrumento_form', instrumento_id=instrumento.id) }}>{{ instrumento.nombre }}</a></td>
+                        <td>{{ instrumento.familia }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <th><a href='/admin/instrumento/'>Añadir Instrumento</a></th>
+                </tfoot>
+                </table>
+            </table>
+        </div>
+    </div>
+{% endblock %}

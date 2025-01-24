@@ -1,0 +1,102 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Registro de Músicos{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Error:</strong> {{ error }}
+        </div>
+    {% endif %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
+        <!-- Nombre y Apellidos en la misma línea -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group {% if form.nombre.errors %}is-invalid{% endif %}">
+                    <label for="{{ form.nombre.id }}">{{ form.nombre.label }}</label>
+                    {{ form.nombre(class="form-control" + (' is-invalid' if form.nombre.errors else '')) }}
+                    {% for error in form.nombre.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group {% if form.apellidos.errors %}is-invalid{% endif %}">
+                    <label for="{{ form.apellidos.id }}">{{ form.apellidos.label }}</label>
+                    {{ form.apellidos(class="form-control" + (' is-invalid' if form.apellidos.errors else '')) }}
+                    {% for error in form.apellidos.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Email y Teléfono en la misma línea -->
+        <div class="row">
+            <div class="col-md-9">
+                <div class="form-group {% if form.email.errors %}is-invalid{% endif %}">
+                    <label for="{{ form.email.id }}">{{ form.email.label }}</label>
+                    {{ form.email(class="form-control" + (' is-invalid' if form.email.errors else '')) }}
+                    {% for error in form.email.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group {% if form.telefono.errors %}is-invalid{% endif %}">
+                    <label for="{{ form.telefono.id }}">{{ form.telefono.label }}</label>
+                    {{ form.telefono(class="form-control" + (' is-invalid' if form.telefono.errors else '')) }}
+                    {% for error in form.telefono.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Fecha de nacimiento y control de minoría de edad en una línea -->
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <div class="form-group {% if form.fecha_nacimiento.errors %}is-invalid{% endif %}">
+                    <label for="{{ form.fecha_nacimiento.id }}">{{ form.fecha_nacimiento.label }}</label>
+                    {{ form.fecha_nacimiento(class="form-control" + (' is-invalid' if form.fecha_nacimiento.errors else ''), id="fecha_nacimiento") }}
+                    {% for error in form.fecha_nacimiento.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Selección de instrumentos -->
+        <div class="form-group">
+            <label for="{{ form.instrumentos.id }}">{{ form.instrumentos.label }}</label>
+            {{ form.instrumentos(class="form-control") }}
+        </div>
+
+        <!-- Selección de instrumento principal -->
+        <div class="form-group">
+            <label for="{{ form.instrumento_principal.id }}">{{ form.instrumento_principal.label }}</label>
+            {{ form.instrumento_principal(class="form-control") }}
+        </div>
+
+        <div class="form-group mt-4">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>
+{% endblock %}

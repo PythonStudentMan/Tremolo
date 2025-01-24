@@ -1,0 +1,22 @@
+{% extends "base_templates.html" %}
+
+{% block title %}Seleccionar Instrumentos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Seleccionar Instrumentos para {{ musico.nombre_completo }}</h2>
+    <form method="post">
+        <div class="form-group">
+            {% for instrumento in instrumentos %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="instrumentos" value="{{ instrumento.id }}" id="instrumento{{ instrumento.id }}">
+                    <label class="form-check-label" for="instrumento{{ instrumento.id }}">
+                        {{ instrumento.nombre }}
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
+{% endblock %}
